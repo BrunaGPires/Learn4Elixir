@@ -1204,12 +1204,17 @@ titulo = segundo["name"]
 1. Extrair o comentário de **id** `11` do produto de **productId** `3` e criar um novo mapa que contêm todos os valores desse item porém mudando o `email` para `contato@foobar.br`.
 
 ```elixir
-comentario =
-  Enum.find(resposta_completa, fn resposta ->
-    resposta["id"] == 11 and resposta["productId"] == 3
-  end)
+[_, _, _, _, comment | _] = resposta_completa
 
-novo_email_resposta_completa = %{comentario | "email" => "contato@foobar.br"}
+if comment["id"] == 11 && comment["productId"] == 3 do
+  %{
+    id: comment["id"],
+    productId: comment["productId"],
+    name: comment["name"],
+    body: comment["body"],
+    email: "contato@foobar.br"
+  }
+end
 ```
 
 1. Extrair o **body** do terceiro comentário.
